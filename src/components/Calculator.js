@@ -15,7 +15,7 @@ const CalculatorResult = styled.div`
   font-size:55px;
   text-align:right;
   box-sizing:border-box;
-  padding-right:10px;
+  padding:0 10px;
   line-height:100px;
   overflow-x:auto;
   overflow-y:hidden;
@@ -58,7 +58,6 @@ export default function Calculator(){
         setResult(Number(string));
       } break;
       case '+' : {
-        setTmpSum(tmpNum);
         setTmpNum(num);
         setResult(num);
       } break;
@@ -72,17 +71,24 @@ export default function Calculator(){
   }
 
   function handleOperator(op){
+    let sum = tmpSum+tmpNum;
     switch(op){
       case '=' : {
-        setResult(tmpSum+tmpNum);
-        setTmpSum(result);
-        console.log({tmpSum, tmpNum, result})
+        setResult(sum);
+        setTmpSum(sum);
         setInputFlag('=')
+        console.log({tmpSum, tmpNum, result})
       }; break;
       case '+' : {
-        setResult(tmpSum+tmpNum);
-        setTmpSum(result);
-        console.log({tmpSum, tmpNum, result})
+        if (inputFlag === '='){
+          setTmpSum(result);
+          
+        }
+        else{
+          setResult(sum);
+          setTmpSum(sum);
+          console.log({tmpSum, tmpNum, result})
+        }
         setInputFlag('+')
       } break; 
     }
